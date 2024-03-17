@@ -21,12 +21,12 @@ repository               : "academicpages/academicpages.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "images/profile.png"
   name             : "Henry Liang"
   pronouns         : # example: "she/her"  
   bio              : "ML Engineer in NLP"
   location         : "Chicago"
-  # employer         : "Red Brick University"
+  employer         : # example: "University of California, Berkeley"
   uri              : # URL
   email            : "hanliang2023@u.northwestern.edu" 
 
