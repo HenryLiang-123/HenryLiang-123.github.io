@@ -1,11 +1,13 @@
 ---
 permalink: /
-title: "Henry Liang"
+title: "Welcome to my site"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
+
+Hello, my name is Henry Liang. 
 
 I am currently working as a Data Scientist in the NLP (natural language processing) and TTS (text to speech) space. I hold an M.S. in Machine Learning and Data Science from [Northwestern University](https://www.mccormick.northwestern.edu/machine-learning-data-science/) and dual B.S. in Applied Mathematics and Statistics from [UCLA](https://ww3.math.ucla.edu/). 
 
