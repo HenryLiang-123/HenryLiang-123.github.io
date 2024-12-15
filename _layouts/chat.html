@@ -1,0 +1,78 @@
+---
+layout: archive
+---
+{% include base_path %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Henry Liang" />
+    <title>Henry Liang</title>
+    <link rel="stylesheet" href="{{ '/assets/css/chat.css' | relative_url }}" />
+</head>
+<body>
+    {{ content }}
+    <div class="top-spacer"></div>
+    <div class="chat-container">
+        <header class="site-header">
+            <h1>Henry Liang v0.5</h1>
+        </header>
+        <div class="chat-window" id="chat-window">
+            <ul id="message-list"></ul>
+        </div>
+        <form id="chat-form" class="chat-input-area">
+            <input type="text" id="message-input" placeholder="Send a message..." autocomplete="off" />
+            <button type="submit">➤</button>
+        </form>
+    </div>
+    <div class="bottom-spacer"></div>
+    <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+</body>
+</html>
+<!-- ---
+layout: archive
+---
+
+{% include base_path %}
+
+{{ content }}
+
+<div class="top-spacer"></div>
+<div class="chat-container">
+  <header class="site-header">
+    <h1>Talk to Me</h1>
+  </header>
+  <div class="chat-window" id="chat-window">
+    <ul id="message-list"></ul>
+  </div>
+  <form id="chat-form" class="chat-input-area">
+    <input type="text" id="message-input" placeholder="Send a message..." autocomplete="off" />
+    <button type="submit">➤</button>
+  </form>
+</div>
+<div class="bottom-spacer"></div>
+
+<link rel="stylesheet" href="{{ '/assets/css/chat.css' | relative_url }}"> -->
+
+<!-- Include your JS for the chatbot -->
+<!-- <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+
+
+<body>
+  <div class="top-spacer"></div>
+
+  <div class="chat-container">
+    <header class="site-header">
+      <h1>Chat with Henry Liang</h1>
+    </header>
+    <div class="chat-window" id="chat-window">
+      <ul id="message-list"></ul>
+    </div>
+    <form id="chat-form" class="chat-input-area">
+      <input type="text" id="message-input" placeholder="Send a message..." autocomplete="off" />
+      <button type="submit">➤</button>
+    </form>
+  </div>
+
+  <div class="bottom-spacer"></div> -->
