@@ -1,4 +1,4 @@
-import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm";
 console.log("WebLLM loaded successfully!");
 
 document.addEventListener('DOMContentLoaded', async () => {
