@@ -2,6 +2,13 @@ import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm";
 console.log("WebLLM loaded successfully!");
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+    if (!navigator.gpu) {
+      console.error("WebGPU is not supported in this environment.");
+      const errorMessage = "WebGPU is required to run this application, but it is not supported in your browser or environment.";
+      alert(errorMessage); // Optional: Notify the user via UI
+      return;
+  }
     const form = document.getElementById('chat-form');
     const input = document.getElementById('message-input');
     const button = form.querySelector('button');
