@@ -1,15 +1,22 @@
-html, body {
+/* html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; /* Prevent overall page scroll */
+  overflow-y: auto; 
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-body {
+/* body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+} */
+
+
   /* Body is a column of: top spacer, chat container, bottom spacer */
 
 
@@ -24,7 +31,7 @@ body {
 
 /* Chat container is exactly 2/3 (~66.6667vh) of viewport height */
 .chat-container {
-  height: 66.6667vh;
+  height: 45vh;
   width: 100%;
   background: #f2f0ed;
   border-left: 1px solid #d8d3cc;
@@ -35,7 +42,7 @@ body {
   flex-direction: column;
   overflow: hidden; /* This ensures content doesn't spill out */
 }
-}
+
 
 
 .site-header {
