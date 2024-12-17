@@ -3,12 +3,7 @@ console.log("WebLLM loaded successfully!");
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    if (!navigator.gpu) {
-      console.error("WebGPU is not supported in this environment.");
-      const errorMessage = "WebGPU is required to run this application, but it is not supported in your browser or environment.";
-      alert(errorMessage); // Optional: Notify the user via UI
-      return;
-  }
+    
     const form = document.getElementById('chat-form');
     const input = document.getElementById('message-input');
     const button = form.querySelector('button');
@@ -18,13 +13,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     // This array will keep track of the conversation.
     const messages = [
       {
-        content: "You are a helpful AI agent helping users.",
+        content: `
+        Pretend to be Henry Liang. 
+        Anwser all questions cheerfully.
+        Do not answer more than what was asked.
+        If you do not know the answer, state clearly that you do not know. 
+        Do not answer questions that are inappropriate, harmful, racist, or illegal. 
+        Do not use inappropriate language.
+        Do not provide medical, legal, or financial advice. 
+        Do not provide information that can be used to identify a person.
+        Do not provide information that can be used to locate a person.
+        `,
         role: "system",
       },
     ];
 
     // Hardcoded model selection
-    let selectedModel = "Llama-3.2-1B-Instruct-q4f32_1-MLC";
+    let selectedModel = "Qwen2.5-1.5B-Instruct-q4f32_1-MLC";
 
     // -------- WebLLM Setup --------
     function updateEngineInitProgressCallback(report) {
@@ -40,8 +45,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function initializeWebLLMEngine() {
       const config = {
-        temperature: 1.0,
-        top_p: 1,
+        temperature: 0.3,
+        top_p: 0.7,
       };
       await engine.reload(selectedModel, config);
     }
@@ -79,8 +84,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadingBubble.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div> Loading model...`;    
 
     // Initialize model on startup
+    
     toggleInput(false);
-    await initializeWebLLMEngine();
+
+    if (!navigator.gpu) {
+      console.error("WebGPU is not supported in this environment.");
+      const errorMessage = "I need WebGPU to talk to you, but it is not supported in your browser or environment.";
+      loadingBubble.innerHTML = errorMessage;
+      return;
+    }
+    
+    try{
+      await initializeWebLLMEngine();
+    } catch (error) {
+      console.error("Error initializing model:", error);
+      loadingBubble.innerHTML = `${error}.`;
+      return;
+    }
+    
 
     // Once model is loaded, show greeting message
     loadingBubble.innerHTML = 'Hi, my name is Henry. What would you like to chat about?';
@@ -127,7 +148,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         (error) => {
           console.error(error);
-          typingBubble.textContent = "Error generating response.";
+          typingBubble.textContent = `Error generating response: ${error}`;
           toggleInput(true);
           input.focus();
         }
@@ -163,84 +184,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const form = document.getElementById('chat-form');
-//     const input = document.getElementById('message-input');
-//     const button = form.querySelector('button');
-//     const messageList = document.getElementById('message-list');
-//     const chatWindow = document.getElementById('chat-window');
-
-
-
-//     // Initial message
-//     const typingBubble = addMessage('', 'bot-message');
-//       showTypingIndicator(typingBubble);
-  
-//       // Simulate bot response after delay
-//       setTimeout(() => {
-//         typingBubble.innerHTML = 'Hi, my name is Henry. What would you like to chat about?';
-//         scrollToBottom();
-  
-//         // Re-enable input and button now that response is shown
-//         toggleInput(true);
-//         input.focus();
-//       }, 1500);
-
-
-//     form.addEventListener('submit', (e) => {
-//       e.preventDefault();
-//       const userMessage = input.value.trim();
-//       if (userMessage === '') return;
-  
-//       // Disable input and button
-//       toggleInput(false);
-  
-//       // User message
-//       addMessage(userMessage, 'user-message');
-//       input.value = '';
-  
-//       // Bot typing bubble
-//       const typingBubble = addMessage('', 'bot-message');
-//       showTypingIndicator(typingBubble);
-  
-//       // Simulate bot response after delay
-//       setTimeout(() => {
-//         typingBubble.innerHTML = 'hello world';
-//         scrollToBottom();
-  
-//         // Re-enable input and button now that response is shown
-//         toggleInput(true);
-//         input.focus();
-//       }, 1500);
-//     });
-  
-//     function addMessage(text, className) {
-//       const li = document.createElement('li');
-//       li.classList.add(className);
-//       li.textContent = text;
-//       messageList.appendChild(li);
-//       scrollToBottom();
-//       return li;
-//     }
-  
-//     function showTypingIndicator(bubbleElement) {
-//       bubbleElement.innerHTML = `
-//         <div class="typing-dots">
-//           <span></span><span></span><span></span>
-//         </div>
-//       `;
-//       scrollToBottom();
-//     }
-  
-//     function scrollToBottom() {
-//       chatWindow.scrollTop = chatWindow.scrollHeight;
-//     }
-  
-//     function toggleInput(enable) {
-//       input.disabled = !enable;
-//       button.disabled = !enable;
-//     }
-//   });
-
-
-  
