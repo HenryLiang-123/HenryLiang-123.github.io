@@ -32,17 +32,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     let selectedModel = "Qwen2.5-1.5B-Instruct-q4f32_1-MLC";
 
     // -------- WebLLM Setup --------
-    function updateEngineInitProgressCallback(report) {
-      // We can dynamically update the loading message if needed
-      // For example, show percentage or changing text
-      // For simplicity, we'll just log it. The typing indicator
-      // remains on screen as the loading animation.
-      console.log(`Model Loading Progress: ${report.progress}, ${report.text}`);
-    }
+    // function updateEngineInitProgressCallback(report) {
+    //   // We can dynamically update the loading message if needed
+    //   // For example, show percentage or changing text
+    //   // For simplicity, we'll just log it. The typing indicator
+    //   // remains on screen as the loading animation.
+    //   console.log(`Model Loading Progress: ${report.progress}, ${report.text}`);
+    // }
 
-    const engine = new webllm.MLCEngine();
-    engine.setInitProgressCallback(updateEngineInitProgressCallback);
-
+    
     async function initializeWebLLMEngine() {
       const config = {
         temperature: 0.3,
@@ -76,6 +74,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         onError(err);
       }
     }
+
+    function updateEngineInitProgressCallback(report) {
+      const percentage = Math.round(report.progress * 100); // Convert to percentage
+      const loadingText = `<div class="typing-dots">
+                              <span></span><span></span><span></span>
+                           </div> Loading model... ${percentage}%`;
+
+      loadingBubble.innerHTML = loadingText; // Update loading bubble content
+      console.log(`Model Loading Progress: ${percentage}%, ${report.text}`);
+    }
+
+    const engine = new webllm.MLCEngine();
+    engine.setInitProgressCallback(updateEngineInitProgressCallback);
+
 
     // Initial loading message (typing bubble as a loading animation)
     const loadingBubble = addMessage('', 'bot-message');
