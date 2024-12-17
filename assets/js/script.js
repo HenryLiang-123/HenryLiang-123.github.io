@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const messages = [
       {
         content: `
-        Pretend to be Henry Liang. 
+        Your name is Henry Liang.
         Anwser all questions cheerfully.
         Do not answer more than what was asked.
         If you do not know the answer, state clearly that you do not know. 
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const percentage = Math.round(report.progress * 100); // Convert to percentage
       const loadingText = `<div class="typing-dots">
                               <span></span><span></span><span></span>
-                           </div> Loading model... ${percentage}%`;
+                           </div> This takes a while when you first visit this page. Loading model... ${percentage}% `;
 
       loadingBubble.innerHTML = loadingText; // Update loading bubble content
       console.log(`Model Loading Progress: ${percentage}%, ${report.text}`);
