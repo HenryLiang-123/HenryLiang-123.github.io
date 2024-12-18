@@ -1,16 +1,16 @@
 # main links links
 main:
-  # - title: "Publications"
-  #   url: /publications/
-
-  # - title: "Talks"
-  #   url: /talks/    
-
   - title: "Chat"
-    url: /chat/    
-    
+    url: /chat/  
+
   - title: "Portfolio"
     url: /portfolio/
+
+  - title: "Publications"
+    url: /publications/
+
+  - title: "Talks"
+    url: /talks/    
         
   # - title: "Blog Posts"
   #   url: /year-archive/
