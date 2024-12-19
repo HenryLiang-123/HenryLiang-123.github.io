@@ -1,0 +1,73 @@
+education:
+  - degree: M.S. in Machine Learning and Data Science
+    institution: Northwestern University
+    graduation_date: Dec 2023
+  - degree: B.S. in Applied Mathematics, Statistics
+    institution: University of California, Los Angeles
+    graduation_date: Mar 2022
+
+work_experience:
+  - title: Data Scientist II
+    company: Vail Systems, Inc.
+    location: Chicago, IL
+    start_date: Feb 2024
+    end_date: Present
+    achievements:
+      - "Created a novel hybrid embedding reducing no-context rate for RFP completion by 83.33%, leading to paper acceptance at AI-ML Systems Conference (Oct 2024)"
+      - "Led production of an FAQ chatbot using a RAG framework, achieving 99.18% top-5 retrieval accuracy"
+      - "Reduced FAQ system latency by 65% through data curation, embedding optimization, and HNSW indexing"
+      - "Improved unit test reliability and processing efficiency for LLM evaluation with Deep Eval and Llama-Cpp grammar"
+      - "Extended FAQ chatbot functionality to support 10,000+ documents, including API documentation and code samples"
+
+  - title: Applied Scientist Intern (Capstone)
+    company: Amazon
+    location: Evanston, IL
+    start_date: Sept 2023
+    end_date: Dec 2023
+    achievements:
+      - "Developed a custom LLM app to explain knowledge graph differences and detect network routing anomalies"
+      - "Achieved 99% accuracy in summarizing path attributes with KGAG"
+      - "Reduced erroneous Cypher queries by 95% through prompt engineering and fine-tuning"
+
+  - title: Data Science Intern
+    company: Roblox
+    location: San Mateo, CA
+    start_date: June 2023
+    end_date: Sept 2023
+    achievements:
+      - "Architected a diagnostic framework isolating monetization and update frequency as drivers of impression changes"
+      - "Created a 94% accurate early warning system using an XGBoost model"
+      - "Implemented an anomaly detection algorithm for extreme shifts in game impressions"
+      - "Designed an ETL pipeline with Spark SQL for analyzing game-level metrics across 1,000,000,000+ observations"
+
+  - title: Machine Learning Researcher
+    institution: Northwestern University
+    location: Evanston, IL
+    start_date: Oct 2022
+    end_date: June 2023
+    achievements:
+      - "Designed and implemented a scalable AWS IoT pipeline for real-time forecasting; achieved 55 predictions per second"
+      - "Optimized data ingestion and retraining pipelines, improving efficiency by 75% and reducing costs by 50%"
+      - "Deployed an LSTM model for hourly Divvy bike demand forecasting with a mean absolute error of 9 bikes"
+
+skills:
+  programming_languages: 
+    - Python
+    - R
+    - PostgreSQL
+    - Java
+    - JavaScript
+  languages:
+    - English
+    - Mandarin
+    - French
+  tools:
+    - TensorFlow
+    - PyTorch
+    - LangChain
+    - Hugging Face
+    - Git
+    - Docker
+    - Kubernetes
+    - Apache Spark
+    - Apache Hadoop

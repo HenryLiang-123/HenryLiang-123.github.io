@@ -1,4 +1,5 @@
 import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm";
+import * as jsyaml from "https://cdn.skypack.dev/js-yaml";
 console.log("WebLLM loaded successfully!");
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -11,26 +12,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const chatWindow = document.getElementById('chat-window');
 
     // This array will keep track of the conversation.
-    const messages = [
-      {
-        content: `
-        You are the AI counterpart of Henry Liang.
-        You are designed to assist users with questions about Henry Liang, his work, and his experience.
-        Anwser all questions cheerfully.
-        Do not answer more than what was asked.
-        If you do not know the answer, state clearly that you do not know. 
-        Do not answer questions that are inappropriate, harmful, racist, or illegal. 
-        Do not use inappropriate language.
-        Do not provide medical, legal, or financial advice. 
-        Do not provide information that can be used to identify a person.
-        Do not provide information that can be used to locate a person.
-        `,
-        role: "system",
-      },
-    ];
+    
 
     // Hardcoded model selection
-    let selectedModel = "Qwen2.5-1.5B-Instruct-q4f32_1-MLC";
+    let selectedModel = "Llama-3.2-3B-Instruct-q4f32_1-MLC";
 
     // -------- WebLLM Setup --------
     // function updateEngineInitProgressCallback(report) {
@@ -41,6 +26,56 @@ document.addEventListener('DOMContentLoaded', async () => {
     //   console.log(`Model Loading Progress: ${report.progress}, ${report.text}`);
     // }
 
+    // Load in data about me
+    let data;
+
+    try {
+      // Fetch the YAML file
+      const response = await fetch("/assets/data/me.yaml");
+      if (!response.ok) {
+        throw new Error("Failed to load YAML data");
+      }
+  
+      // Get the raw YAML text
+      const yamlText = await response.text();
+  
+      // Parse YAML into a JavaScript object using js-yaml
+      data = jsyaml.load(yamlText);
+  
+      // Display the parsed data
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+      document.getElementById("output").textContent = "Failed to load data.";
+    }
+
+    let education;
+    let work;
+    let skills;
+
+    if (data){
+      education = data.education;
+      work = data.work_experience;
+      skills = data.skills;
+    }
+
+    // Format education, work experience, and skills into readable text
+    const educationText = education
+      .map(
+        (entry) =>
+          `- Degree: ${entry.degree}, Institution: ${entry.institution}, Graduation Date: ${entry.graduation_date}`
+      )
+      .join("\n");
+
+    const workText = work
+      .map(
+        (job) =>
+          `- Role: ${job.title}, Company: ${job.company}, Start Date: ${job.start_date}, End Date: ${job.end_date || "Present"}, Work Description: ${job.achievements}`
+      )
+      .join("\n");
+
+    const skillsText = `Programming: ${skills.programming_languages}, Tools: ${skills.tools}, Languages: ${skills.languages}`;
+    
     
     async function initializeWebLLMEngine() {
       const config = {
@@ -117,10 +152,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     
 
     // Once model is loaded, show greeting message
-    loadingBubble.innerHTML = 'Hi, my name is Henry. What would you like to chat about?';
+    loadingBubble.innerHTML = 'I\'m here to help answer any questions you have about Henry Liang. What would you like to know?';
     scrollToBottom();
     toggleInput(true);
     input.focus();
+
+    
+    // Construct the system message
+    const messages = [
+    {
+      content: `
+      You are the AI counterpart of Henry Liang.
+      You are designed to assist users with questions about Henry Liang, his work, and his experience.
+      Answer all questions cheerfully.
+      Do not answer more than what was asked.
+      If you do not know the answer, state clearly that you do not know. 
+      Do not answer questions that are inappropriate, harmful, racist, or illegal. 
+      Do not use inappropriate language.
+      Do not provide medical, legal, or financial advice. 
+      Do not provide information that can be used to identify a person.
+      Do not provide information that can be used to locate a person.
+      `,
+      role: "system",
+    },
+    ];
+
+    console.log(messages);
+    
+
 
     // Form submission logic
     form.addEventListener('submit', (e) => {
@@ -130,7 +189,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Add user message
       addMessage(userMessage, 'user-message');
-      messages.push({ role: 'user', content: userMessage });
+      messages.push({ role: 'user', content: 
+        `The following is data about Henry Liang:
+      
+        **Education:**
+        ${educationText}
+        
+        **Work Experience:**
+        ${workText}
+
+        **Skills:**
+        ${skillsText}
+        
+        If it is a question about Henry Liang, use the above information to answer the following question about Henry Liang.
+
+        ${userMessage}
+        `});
 
       input.value = '';
       toggleInput(false);
@@ -138,6 +212,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Add bot typing indicator
       const typingBubble = addMessage('', 'bot-message');
       showTypingIndicator(typingBubble);
+
+      console.log(messages);
 
       // Use WebLLM to generate a response
       streamingGenerating(
@@ -160,8 +236,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           console.log("Usage:", usage);
         },
         (error) => {
-          console.error(error);
-          typingBubble.textContent = `Error generating response: ${error}`;
+          if (error.name === 'ContextWindowSizeExceededError') {
+            console.log('Deleted messages');
+            typingBubble.textContent = `I'm limited by the technology of my time. I can't remember everything. Please ask your question again.`;
+            messages.splice(1, messages.length - 1);
+
+          } else {
+            console.error(error);
+            typingBubble.textContent = `Error generating response: ${error}`;
+          }
           toggleInput(true);
           input.focus();
         }
