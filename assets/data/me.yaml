@@ -41,7 +41,7 @@ work_experience:
       - "Designed an ETL pipeline with Spark SQL for analyzing game-level metrics across 1,000,000,000+ observations"
 
   - title: Machine Learning Researcher
-    institution: Northwestern University
+    company: Northwestern University
     location: Evanston, IL
     start_date: Oct 2022
     end_date: June 2023
