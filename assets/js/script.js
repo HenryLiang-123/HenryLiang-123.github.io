@@ -1,8 +1,13 @@
 import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm";
 import * as jsyaml from "https://cdn.skypack.dev/js-yaml";
+// import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.2.1';
+// Allocate a pipeline for sentiment-analysis
+
 console.log("WebLLM loaded successfully!");
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+
 
     
     const form = document.getElementById('chat-form');
@@ -12,10 +17,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     const chatWindow = document.getElementById('chat-window');
 
     // This array will keep track of the conversation.
+
+    // const pipe = await pipeline('sentiment-analysis');
+
+    // const out = await pipe('I love transformers!');
+    // console.log(out);
     
 
     // Hardcoded model selection
-    let selectedModel = "Llama-3.2-3B-Instruct-q4f32_1-MLC";
+    let selectedModel = "Qwen2.5-3B-Instruct-q4f32_1-MLC";
 
     // -------- WebLLM Setup --------
     // function updateEngineInitProgressCallback(report) {
@@ -85,6 +95,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       await engine.reload(selectedModel, config);
     }
 
+    let total_tokens = 0;
+
     async function streamingGenerating(messages, onUpdate, onFinish, onError) {
       try {
         let curMessage = "";
@@ -149,6 +161,31 @@ document.addEventListener('DOMContentLoaded', async () => {
       loadingBubble.innerHTML = `${error}.`;
       return;
     }
+
+    let messages = [
+      {
+        content: `
+        You are the AI counterpart of Henry Liang.
+        You are designed to assist users with questions about Henry Liang, his work, and his experience.
+  
+        **Tone and Scope:**
+        Answer all questions cheerfully, but do not provide more information than what is explicitly asked.
+  
+        **Uncertainty:**
+        If you do not know the answer, state clearly, "I do not know." Avoid guessing or fabricating information.
+  
+       **Restrictions:**
+  
+        Do not answer questions that are inappropriate, harmful, racist, or illegal.
+        Avoid using inappropriate language under any circumstance.
+        Do not provide medical, legal, or financial advice.
+        Do not share any information that can identify or locate a person.
+        Follow these guidelines strictly, and always prioritize clarity, accuracy, and adherence to the scope of your role.
+  
+        `,
+        role: "system",
+      },
+      ];
     
 
     // Once model is loaded, show greeting message
@@ -157,28 +194,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     toggleInput(true);
     input.focus();
 
-    
-    // Construct the system message
-    const messages = [
-    {
-      content: `
-      You are the AI counterpart of Henry Liang.
-      You are designed to assist users with questions about Henry Liang, his work, and his experience.
-      Answer all questions cheerfully.
-      Do not answer more than what was asked.
-      If you do not know the answer, state clearly that you do not know. 
-      Do not answer questions that are inappropriate, harmful, racist, or illegal. 
-      Do not use inappropriate language.
-      Do not provide medical, legal, or financial advice. 
-      Do not provide information that can be used to identify a person.
-      Do not provide information that can be used to locate a person.
-      `,
-      role: "system",
-    },
-    ];
-
-    console.log(messages);
-    
 
 
     // Form submission logic
@@ -186,6 +201,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       e.preventDefault();
       const userMessage = input.value.trim();
       if (userMessage === '') return;
+      // Construct the system message
+
+      
 
       // Add user message
       addMessage(userMessage, 'user-message');
@@ -208,6 +226,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       input.value = '';
       toggleInput(false);
+
+      console.log(messages);
+
 
       // Add bot typing indicator
       const typingBubble = addMessage('', 'bot-message');
@@ -234,6 +255,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
           // If you want to show usage stats or remove this
           console.log("Usage:", usage);
+
+          let baseline = 850;
+          if (messages.length === 3) {
+            baseline = usage.total_tokens;
+          }
+
+          total_tokens += usage.total_tokens;
+
+          console.log("Total tokens:", total_tokens);
+
+          if (total_tokens > 3000) {
+            console.log('Deleted messages');
+            const systemPrompt = messages[0]; // System prompt at [0]
+            const userQuestion = messages[messages.length - 2]; // Most recent user question at [-2]
+            const assistantResponse = messages[messages.length - 1]; // Most recent assistant response at [-1]
+            total_tokens = baseline;
+            // Keep only these messages
+            messages = [systemPrompt, userQuestion, assistantResponse];
+          }
+
+
         },
         (error) => {
           if (error.name === 'ContextWindowSizeExceededError') {
