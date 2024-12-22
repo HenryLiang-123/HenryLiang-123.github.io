@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(`Model Loading Progress: ${percentage}%, ${report.text}`);
   }
 
+  
   // Actual function to load the model into the engine
   async function initializeWebLLMEngine(modelName) {
     const config = {
