@@ -19,6 +19,26 @@
 
   /* Body is a column of: top spacer, chat container, bottom spacer */
 
+/* Apply some basic styles */
+.custom-select {
+  width: 200px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Add hover and focus effects */
+.custom-select:hover {
+  border-color: #007BFF;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #0056b3;
+}
 
 /* 1/6 of viewport height is ~16.6667vh */
 .top-spacer {
