@@ -52,10 +52,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     .join("\n");
   
   const workText = work
-    .map(w => `- Role: ${w.title}, Company: ${w.company}, Start Date: ${w.start_date}, End Date: ${w.end_date || "Present"}, Work Description: ${w.achievements}`)
+    .map(w => `- Role: ${w.title}, Company: ${w.company}, Start Date: ${w.start_date}, End Date: ${w.end_date || "Present"}, Work Description: ['${w.achievements}']`)
     .join("\n");
 
-  const skillsText = `Programming: ${skills.programming_languages}, Tools: ${skills.tools}, Languages: ${skills.languages}`;
+  const skillsText = `Programming: [${skills.programming_languages}], Tools: ${skills.tools}, Languages: [${skills.languages}]`;
 
   // ---- ENGINE & MODEL SELECTION ---- //
   let engine = null;
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
 
-  
+
 
   // Actual function to load the model into the engine
   async function initializeWebLLMEngine(modelName) {
