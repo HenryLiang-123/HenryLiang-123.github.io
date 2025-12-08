@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     'deepseek-r1-distill-7b': 'DeepSeek-R1-Distill-Qwen-7B-q4f32_1-MLC',
   };
 
+  // Add placeholder option
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '-- Select a model --';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  selectBox.appendChild(placeholder);
+
   options.forEach(optionText => {
     const option = document.createElement('option');
     option.value = optionText.toLowerCase().replace(/\s+/g, '-');
