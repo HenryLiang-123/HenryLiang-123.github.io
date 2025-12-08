@@ -244,3 +244,82 @@
 .chat-input-area button:active {
   background: #3590ab;
 }
+
+/* Markdown styling in bot messages */
+.bot-message p {
+  margin: 0 0 8px 0;
+}
+
+.bot-message p:last-child {
+  margin-bottom: 0;
+}
+
+.bot-message ul,
+.bot-message ol {
+  margin: 8px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.bot-message ol {
+  list-style-type: decimal;
+}
+
+.bot-message li {
+  display: list-item;
+  float: none;
+  clear: none;
+  max-width: 100%;
+  margin-bottom: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  animation: none;
+}
+
+.bot-message code {
+  background: #e8e8e8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.bot-message pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.bot-message pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.bot-message strong {
+  font-weight: 600;
+}
+
+.bot-message em {
+  font-style: italic;
+}
+
+.bot-message a {
+  color: #52adc8;
+  text-decoration: underline;
+}
+
+.bot-message h1,
+.bot-message h2,
+.bot-message h3 {
+  margin: 12px 0 8px 0;
+  font-weight: 600;
+}
+
+.bot-message h1 { font-size: 1.2em; }
+.bot-message h2 { font-size: 1.1em; }
+.bot-message h3 { font-size: 1em; }

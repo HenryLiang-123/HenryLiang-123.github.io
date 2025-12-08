@@ -1,5 +1,6 @@
 import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.80";
 import * as jsyaml from "https://cdn.skypack.dev/js-yaml";
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
   const form = document.getElementById('chat-form');
@@ -245,11 +246,11 @@ RULES:
     streamingGenerating(
       messages,
       (partialContent) => {
-        typingBubble.textContent = partialContent;
+        typingBubble.innerHTML = marked.parse(partialContent);
         scrollToBottom();
       },
       (finalMessage, usage) => {
-        typingBubble.textContent = finalMessage;
+        typingBubble.innerHTML = marked.parse(finalMessage);
         messages.push({ role: 'assistant', content: finalMessage });
         scrollToBottom();
 
