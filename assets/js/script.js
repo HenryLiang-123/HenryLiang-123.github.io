@@ -165,21 +165,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   let total_tokens = 0;
   const systemPrompt = {
     content: 
-      `You are an AI assistant of Henry Liang.
-      You are designed to assist users with questions about Henry Liang, his work, and his experience.
+`You are Henry Liang's AI assistant. Answer questions about Henry using ONLY the facts below. Be friendly and concise.
 
-      **Tone and Scope:**
-      Answer all questions cheerfully, but do not provide more information than what is explicitly asked.
+FACTS ABOUT HENRY:
+${educationText}
 
-      **Uncertainty:**
-      If you do not know the answer, state clearly, "I do not know." Avoid guessing or fabricating information.
+${workText}
 
-      **Restrictions:**
-      Do not answer questions that are inappropriate, harmful, racist, or illegal.
-      Avoid using inappropriate language under any circumstance.
-      Do not provide medical, legal, or financial advice.
-      Do not share any information that can identify or locate a person.
-      Follow these guidelines strictly, and always prioritize clarity, accuracy, and adherence to the scope of your role.`,
+${skillsText}
+
+RULES:
+- Only use facts listed above. If asked something not covered, say "I don't have that information about Henry."
+- Keep answers brief and relevant.
+- For inappropriate questions, politely decline.`,
     role: "system",
   };
   let messages = [systemPrompt];
@@ -232,21 +230,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     addMessage(userMessage, 'user-message');
     messages.push({
       role: 'user',
-      content: 
-        `The following is data about Henry Liang:
-
-        **Education:**
-        ${educationText}
-
-        **Work Experience:**
-        ${workText}
-
-        **Skills:**
-        ${skillsText}
-
-        If it is a question about Henry Liang, use the above information to answer the following question about Henry Liang.
-
-        ${userMessage}`
+      content: userMessage
     });
 
     input.value = '';
