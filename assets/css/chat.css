@@ -323,3 +323,45 @@
 .bot-message h1 { font-size: 1.2em; }
 .bot-message h2 { font-size: 1.1em; }
 .bot-message h3 { font-size: 1em; }
+
+/* Thinking block (collapsible) */
+.thinking-block {
+  background: #f0f4f7;
+  border: 1px solid #d0d8e0;
+  border-radius: 6px;
+  margin: 8px 0;
+  padding: 0;
+}
+
+.thinking-block summary {
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 0.85em;
+  color: #6a7a8a;
+  font-weight: 500;
+  user-select: none;
+}
+
+.thinking-block summary:hover {
+  color: #52adc8;
+}
+
+.thinking-block[open] summary {
+  border-bottom: 1px solid #d0d8e0;
+}
+
+.thinking-content {
+  padding: 10px 12px;
+  font-size: 0.9em;
+  color: #5a6a7a;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.thinking-content p {
+  margin: 0 0 6px 0;
+}
+
+.thinking-content p:last-child {
+  margin-bottom: 0;
+}

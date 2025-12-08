@@ -203,6 +203,31 @@ RULES:
     total_tokens = 0;
   }
 
+  // ----- Process thinking tags ----- //
+  function processThinkingTags(content) {
+    // Handle complete <think>...</think> blocks
+    const completeThinkRegex = /<think>([\s\S]*?)<\/think>/g;
+    let processed = content.replace(completeThinkRegex, (match, thinkContent) => {
+      return `<details class="thinking-block"><summary>Show thinking</summary><div class="thinking-content">${marked.parse(thinkContent)}</div></details>`;
+    });
+    
+    // Handle incomplete/streaming <think> without closing tag
+    const incompleteThinkRegex = /<think>([\s\S]*)$/;
+    processed = processed.replace(incompleteThinkRegex, (match, thinkContent) => {
+      return `<details class="thinking-block" open><summary>Thinking...</summary><div class="thinking-content">${marked.parse(thinkContent)}</div></details>`;
+    });
+    
+    // Parse remaining content as markdown (but avoid double-parsing the details blocks)
+    // Split by details blocks, parse non-details parts
+    const parts = processed.split(/(<details[\s\S]*?<\/details>)/g);
+    return parts.map(part => {
+      if (part.startsWith('<details')) {
+        return part;
+      }
+      return marked.parse(part);
+    }).join('');
+  }
+
   async function streamingGenerating(messages, onUpdate, onFinish, onError) {
     try {
       let curMessage = "";
@@ -254,11 +279,11 @@ RULES:
     streamingGenerating(
       messages,
       (partialContent) => {
-        typingBubble.innerHTML = marked.parse(partialContent);
+        typingBubble.innerHTML = processThinkingTags(partialContent);
         scrollToBottom();
       },
       (finalMessage, usage) => {
-        typingBubble.innerHTML = marked.parse(finalMessage);
+        typingBubble.innerHTML = processThinkingTags(finalMessage);
         messages.push({ role: 'assistant', content: finalMessage });
         scrollToBottom();
 
