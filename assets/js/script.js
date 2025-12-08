@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ----- CREATE MODEL DROPDOWN ----- //
   const selectBox = document.createElement('select');
-  const options = ['Qwen2.5 3B', 'Qwen2.5 0.5B', 'Llama3.2 1B'];
+  const options = ['Qwen3 4B', 'Qwen3 0.6B', 'Llama3.2 1B'];
 
   const modelMapping = {
-    'qwen2.5-3b': 'Qwen2.5-3B-Instruct-q4f32_1-MLC',
-    'qwen2.5-0.5b': 'Qwen2.5-0.5B-Instruct-q4f32_1-MLC',
+    'qwen3-4b': 'Qwen3-4B-Instruct-q4f32_1-MLC',
+    'qwen3-0.6b': 'Qwen3-0.6B-Instruct-q4f32_1-MLC',
     'llama3.2-1b': 'Llama-3.2-1B-Instruct-q4f32_1-MLC',
   };
 
