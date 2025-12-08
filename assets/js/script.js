@@ -276,10 +276,27 @@ RULES:
     const typingBubble = addMessage('', 'bot-message');
     showTypingIndicator(typingBubble);
 
+    // Track if user has manually scrolled the thinking content
+    let userScrolledThinking = false;
+    typingBubble.addEventListener('scroll', (e) => {
+      if (e.target.classList.contains('thinking-content')) {
+        const el = e.target;
+        const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 30;
+        if (!isAtBottom) {
+          userScrolledThinking = true;
+        }
+      }
+    }, true);
+
     streamingGenerating(
       messages,
       (partialContent) => {
         typingBubble.innerHTML = processThinkingTags(partialContent);
+        // Auto-scroll thinking content if user hasn't scrolled up
+        const thinkingContent = typingBubble.querySelector('.thinking-content');
+        if (thinkingContent && !userScrolledThinking) {
+          thinkingContent.scrollTop = thinkingContent.scrollHeight;
+        }
         scrollToBottom();
       },
       (finalMessage, usage) => {
