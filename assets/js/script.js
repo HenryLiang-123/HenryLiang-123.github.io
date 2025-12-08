@@ -39,8 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     data = jsyaml.load(yamlText);
     console.log(data);
   } catch (error) {
-    console.error("Error:", error);
-    document.getElementById("output").textContent = "Failed to load data.";
+    console.error("Error loading YAML data:", error);
   }
 
   let education = data?.education || [];

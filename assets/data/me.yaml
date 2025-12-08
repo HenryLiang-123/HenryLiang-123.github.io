@@ -7,17 +7,27 @@ education:
     graduation_date: Mar 2022
 
 work_experience:
-  - title: Data Scientist II
+  - title: Senior AI Engineer
+    company: Vultron AI
+    location: San Francisco, CA
+    start_date: Apr 2025
+    end_date: Present
+    achievements:
+      - "Led the redesign of the LLM integration layer for multi-provider support, reducing model adoption time from weeks to days"
+      - "Created multiple AI agents to autonomously write, execute, and verify prompt regression tests, accelerating project timeline from 3 months to 3 weeks"
+      - "Designed a collaborative agentic proposal assistant and fine-tuned LLMs to use customer-specific language"
+      - "Reduced CUDA OOM errors by 99% for customer deployments by redesigning OCR and reranker services"
+      - "Designed and integrated an AI evaluation system for retrieval accuracy, hallucination levels, and output quality"
+
+  - title: AI Engineer
     company: Vail Systems, Inc.
     location: Chicago, IL
     start_date: Feb 2024
-    end_date: Present
+    end_date: Apr 2025
     achievements:
-      - "Created a novel hybrid embedding reducing no-context rate for RFP completion by 83.33%, leading to paper acceptance at AI-ML Systems Conference (Oct 2024)"
-      - "Led production of an FAQ chatbot using a RAG framework, achieving 99.18% top-5 retrieval accuracy"
-      - "Reduced FAQ system latency by 65% through data curation, embedding optimization, and HNSW indexing"
-      - "Improved unit test reliability and processing efficiency for LLM evaluation with Deep Eval and Llama-Cpp grammar"
-      - "Extended FAQ chatbot functionality to support 10,000+ documents, including API documentation and code samples"
+      - "Led development of a RAG system achieving 99.18% top-5 retrieval accuracy for enterprise question-answering"
+      - "Created a novel hybrid embedding reducing no-context rate by 83.33%, leading to paper acceptance at AI-ML Systems Conference (Oct 2024)"
+      - "Spearheaded engineering of an autonomous AI agent that analyzes daily call transcripts and generates executive summaries"
 
   - title: Applied Scientist Intern (Capstone)
     company: Amazon
@@ -25,20 +35,9 @@ work_experience:
     start_date: Sept 2023
     end_date: Dec 2023
     achievements:
-      - "Developed a custom LLM app to explain knowledge graph differences and detect network routing anomalies"
-      - "Achieved 99% accuracy in summarizing path attributes with KGAG"
-      - "Reduced erroneous Cypher queries by 95% through prompt engineering and fine-tuning"
-
-  - title: Data Science Intern
-    company: Roblox
-    location: San Mateo, CA
-    start_date: June 2023
-    end_date: Sept 2023
-    achievements:
-      - "Architected a diagnostic framework isolating monetization and update frequency as drivers of impression changes"
-      - "Created a 94% accurate early warning system using an XGBoost model"
-      - "Implemented an anomaly detection algorithm for extreme shifts in game impressions"
-      - "Designed an ETL pipeline with Spark SQL for analyzing game-level metrics across 1,000,000,000+ observations"
+      - "Designed an LLM application for graph reasoning and network routing anomaly detection, achieving 100% accuracy on core graph problems"
+      - "Reduced erroneous graph database queries by 95% via prompt engineering and few-shot learning feedback loop"
+      - "Co-authored paper on GRRAF, accepted for publication at EMNLP 2025"
 
   - title: Machine Learning Researcher
     company: Northwestern University
@@ -47,7 +46,6 @@ work_experience:
     end_date: June 2023
     achievements:
       - "Designed and implemented a scalable AWS IoT pipeline for real-time forecasting; achieved 55 predictions per second"
-      - "Optimized data ingestion and retraining pipelines, improving efficiency by 75% and reducing costs by 50%"
       - "Deployed an LSTM model for hourly Divvy bike demand forecasting with a mean absolute error of 9 bikes"
 
 skills:
@@ -57,10 +55,10 @@ skills:
     - PostgreSQL
     - Java
     - JavaScript
+    - Rust
   languages:
     - English
     - Mandarin
-    - French
   tools:
     - TensorFlow
     - PyTorch
@@ -70,4 +68,3 @@ skills:
     - Docker
     - Kubernetes
     - Apache Spark
-    - Apache Hadoop
