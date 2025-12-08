@@ -360,7 +360,9 @@ RULES:
   }
 
   function scrollToBottom() {
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    requestAnimationFrame(() => {
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    });
   }
 
   function toggleInput(enable) {
