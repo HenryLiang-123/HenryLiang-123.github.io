@@ -276,8 +276,11 @@ RULES:
     const typingBubble = addMessage('', 'bot-message');
     showTypingIndicator(typingBubble);
 
-    // Track if user has manually scrolled the thinking content
+    // Track user interactions with thinking block
     let userScrolledThinking = false;
+    let userToggledThinking = false;
+    let thinkingOpenState = true; // Default open while streaming
+    
     typingBubble.addEventListener('scroll', (e) => {
       if (e.target.classList.contains('thinking-content')) {
         const el = e.target;
@@ -287,15 +290,37 @@ RULES:
         }
       }
     }, true);
+    
+    typingBubble.addEventListener('toggle', (e) => {
+      if (e.target.classList.contains('thinking-block')) {
+        userToggledThinking = true;
+        thinkingOpenState = e.target.open;
+      }
+    }, true);
 
     streamingGenerating(
       messages,
       (partialContent) => {
+        // Save scroll position before update
+        const existingThinking = typingBubble.querySelector('.thinking-content');
+        const scrollPos = existingThinking ? existingThinking.scrollTop : 0;
+        
         typingBubble.innerHTML = processThinkingTags(partialContent);
+        
+        // Restore user's toggle state
+        const thinkingBlock = typingBubble.querySelector('.thinking-block');
+        if (thinkingBlock && userToggledThinking) {
+          thinkingBlock.open = thinkingOpenState;
+        }
+        
         // Auto-scroll thinking content if user hasn't scrolled up
         const thinkingContent = typingBubble.querySelector('.thinking-content');
-        if (thinkingContent && !userScrolledThinking) {
-          thinkingContent.scrollTop = thinkingContent.scrollHeight;
+        if (thinkingContent) {
+          if (userScrolledThinking) {
+            thinkingContent.scrollTop = scrollPos;
+          } else {
+            thinkingContent.scrollTop = thinkingContent.scrollHeight;
+          }
         }
         scrollToBottom();
       },
