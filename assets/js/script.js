@@ -154,6 +154,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.log('User selected a model for the first time.');
     } else {
       console.log(`Switching to a new model: ${newModel}`);
+      // Clear all messages except status bubble when switching models
+      clearChat();
     }
     selectedModel = newModel;
     await initializeModel(selectedModel);
@@ -161,28 +163,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ----- MESSAGES & STREAMING LOGIC ----- //
   let total_tokens = 0;
-  let messages = [
-    {
-      content: 
+  const systemPrompt = {
+    content: 
+      `You are an AI assistant of Henry Liang.
+      You are designed to assist users with questions about Henry Liang, his work, and his experience.
 
-        `You are an AI assistant of Henry Liang.
-        You are designed to assist users with questions about Henry Liang, his work, and his experience.
+      **Tone and Scope:**
+      Answer all questions cheerfully, but do not provide more information than what is explicitly asked.
 
-        **Tone and Scope:**
-        Answer all questions cheerfully, but do not provide more information than what is explicitly asked.
+      **Uncertainty:**
+      If you do not know the answer, state clearly, "I do not know." Avoid guessing or fabricating information.
 
-        **Uncertainty:**
-        If you do not know the answer, state clearly, "I do not know." Avoid guessing or fabricating information.
+      **Restrictions:**
+      Do not answer questions that are inappropriate, harmful, racist, or illegal.
+      Avoid using inappropriate language under any circumstance.
+      Do not provide medical, legal, or financial advice.
+      Do not share any information that can identify or locate a person.
+      Follow these guidelines strictly, and always prioritize clarity, accuracy, and adherence to the scope of your role.`,
+    role: "system",
+  };
+  let messages = [systemPrompt];
 
-        **Restrictions:**
-        Do not answer questions that are inappropriate, harmful, racist, or illegal.
-        Avoid using inappropriate language under any circumstance.
-        Do not provide medical, legal, or financial advice.
-        Do not share any information that can identify or locate a person.
-        Follow these guidelines strictly, and always prioritize clarity, accuracy, and adherence to the scope of your role.`,
-      role: "system",
-    },
-  ];
+  // ----- Clear chat function ----- //
+  function clearChat() {
+    // Remove all message elements
+    messageList.innerHTML = '';
+    // Re-add the status bubble
+    messageList.appendChild(statusBubble);
+    // Reset messages array to just system prompt
+    messages = [systemPrompt];
+    // Reset token count
+    total_tokens = 0;
+  }
 
   async function streamingGenerating(messages, onUpdate, onFinish, onError) {
     try {
