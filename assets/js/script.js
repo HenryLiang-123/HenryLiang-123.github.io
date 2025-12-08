@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ----- CREATE MODEL DROPDOWN ----- //
   const selectBox = document.createElement('select');
-  const options = ['Qwen 3 4B', 'Qwen 3 0.6B', 'Llama 3.2 1B', 'DeepSeek R1 Distill 7B'];
+  const options = ['Qwen 2.5 3B', 'Qwen 2.5 0.5B', 'Llama 3.2 1B', 'DeepSeek R1 Distill 7B'];
 
   const modelMapping = {
-    'qwen-3-4b': 'Qwen3-4B-Instruct-q4f32_1-MLC',
-    'qwen-3-0.6b': 'Qwen3-0.6B-Instruct-q4f32_1-MLC',
+    'qwen-2.5-3b': 'Qwen2.5-3B-Instruct-q4f32_1-MLC',
+    'qwen-2.5-0.5b': 'Qwen2.5-0.5B-Instruct-q4f32_1-MLC',
     'llama-3.2-1b': 'Llama-3.2-1B-Instruct-q4f32_1-MLC',
     'deepseek-r1-distill-7b': 'DeepSeek-R1-Distill-Qwen-7B-q4f32_1-MLC',
   };
