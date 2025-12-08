@@ -5,4 +5,4 @@ permalink: /chat/
 ---
 
 
-If you would like to know more about me immediately, talk to my assistant. I promise he's very knowledgeable. If you'd rather talk to me, or if theres feedback on my assistant, feel free to contact me. 
+Want to learn more about me? Chat with my AI assistant below—it's well-versed in my background, experience, and projects. If you'd prefer to connect directly or have feedback on the assistant, feel free to reach out via email.
