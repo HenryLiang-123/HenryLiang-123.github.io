@@ -9,8 +9,10 @@ redirect_from:
 
 Hello, my name is Henry Liang. 
 
-I am a Data Scientist in the NLP space. I'm particularly interested in agentic LLMs.  I hold an M.S. in Machine Learning and Data Science from [Northwestern University](https://www.mccormick.northwestern.edu/machine-learning-data-science/) and B.S. in Applied Mathematics and Statistics from [UCLA](https://ww3.math.ucla.edu/). 
+I am a Senior AI Engineer at [Vultron AI](https://www.vultron.ai/) based in San Francisco, CA. My work centers on building AI applications, designing agentic systems, and creating intuitive Human-AI interactions. I hold an M.S. in Machine Learning and Data Science from [Northwestern University](https://www.mccormick.northwestern.edu/machine-learning-data-science/) and a B.S. in Applied Mathematics and Statistics from [UCLA](https://ww3.math.ucla.edu/). 
 
-In my previous roles and projects, I worked extensively in the data science field, overseeing projects from conception to completion. I've developed and optimized RAG frameworks, implemented robust feedback loops for RAG frameworks, and created systems for knowledge graph analysis with LLMs.
+I work extensively with large language models, building production AI applications, maintaining AI infrastructure, and deploying systems on custom hardware. My experience includes architecting multi-provider LLM integration layers, developing autonomous AI agents for testing and proposal assistance, and designing evaluation systems for retrieval accuracy and output quality. Previously, I built RAG systems achieving 99%+ retrieval accuracy and created novel hybrid embeddings that significantly improved context retrieval.
 
-Feel free to checkout my [github](https://github.com/HenryLiang-123) where I document my projects.
+My research has been published at EMNLP 2025, where I co-authored a paper on Graph Reasoning via Retrieval Augmented Framework (GRRAF) for network routing anomaly detection using LLMs. I also presented at the AI-ML Systems Conference 2024 on a novel hybrid embedding approach that significantly improved retrieval performance for proposal completion tasks.
+
+Feel free to check out my [GitHub](https://github.com/HenryLiang-123) where I document my projects.
